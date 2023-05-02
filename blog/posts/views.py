@@ -5,8 +5,10 @@ from .models import Post
 # Create your views here.
 
 def createID(request):
-    posts = Post.objects.all()
-    return render(request, 'createID.html', {'posts': posts})
+    #ts = Post.objects.all()
+    #return render(request, 'createID.html', {'posts': posts})
+    return render(request, 'createID.html')
+
 
 
 def post(request, pk):
@@ -16,5 +18,13 @@ def post(request, pk):
 
 def home(request):
     posts = Post.objects.all()
+    if request.method == 'POST':
+        post = Post()
+        post.title = request.POST.get('postheading')
+        post.body = request.POST.get('postcontent')
+        post.save()
+
+
+
     return render(request, 'home.html', {'posts': posts})
 

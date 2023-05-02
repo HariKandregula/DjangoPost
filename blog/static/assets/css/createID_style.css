@@ -1,0 +1,36 @@
+body {
+    background-color: lightblue;
+}
+
+.postdetails {
+    display: table;
+}
+
+.detailsformone {
+    display: table-row;
+}
+
+.headingbox, .topicname{
+    display: table-cell;
+    margin-bottom: 10px;
+}
+
+.topicname{
+    padding-right: 10px;
+}
+
+.content{
+    padding-right: 10px;
+}
+
+.contentbox, .content {
+    display: table-cell;
+}
+
+.contentbox{
+    padding-bottom: 100px;
+}
+
+.postsubmit{
+    background-color: red;
+}

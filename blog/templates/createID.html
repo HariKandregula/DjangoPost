@@ -4,11 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Create a Post</title>
-    <link rel="stylesheet" href="{% static 'assets/css/createID_style.css' %}">
+    <link rel="stylesheet" href="{% static '/assets/css/createID_style.css' %}" type="text/css">
 </head>
 <body>
 
 <h1>welcome to Create a Post page</h1>
+<form class="postdetails" action="/" method="POST">
+    {% csrf_token %}
+    <div class="detailsformone">
+        <h5 class="topicname">Topic</h5>
+        <input class="headingbox" type="text" name="postheading">
+    </div>
+    <div class="detailsformone">
+        <h5 class="content">Content</h5>
+        <input class="contentbox" type="text" name="postcontent">
+    </div>
+    <div class="detailsformone">
+        <input class="postsubmit" type="submit" value="Post">
+    </div>
+</form>
 
 </body>
 </html>
