@@ -23,8 +23,5 @@ def home(request):
         post.title = request.POST.get('postheading')
         post.body = request.POST.get('postcontent')
         post.save()
-
-
-
     return render(request, 'home.html', {'posts': posts})
 

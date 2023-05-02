@@ -41,8 +41,13 @@ body {
     padding-left: 500px;
 }
 
+.homepost{
+    margin-left: 10px;
+}
+
 .allposts {
     background-color: white;
+    margin-right: 500px;
 }
 
 .paragraph1 {

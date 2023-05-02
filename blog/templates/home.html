@@ -14,6 +14,8 @@
             <li class="listitem listsearch"><input class="topheading search" type="search" id="search"></li>
             <li class="listitem listpostcreate"><button class="topheading postcreate" onclick="location.href='/home/createID'">
                 Create a new Post</button></li>
+            <li class="listitem createuser"><button>Sign Up</button></li>
+            <li class="listitem login"><button>Login</button></li>
         </ul>
     </nav>
     <h1 align="center">Posts</h1>
@@ -22,9 +24,9 @@
     {% for post in posts reversed %}
     <a style="text-decoration: none; color: black;" href="/post/{{post.id}}">
         <section class="allposts">
-            <h2>{{post.title}}</h2>
-            <h5>{{post.created_at}}</h5>
-            <p>{{post.body|truncatewords:20}}</p>
+            <h2 class="homepost">{{post.title}}</h2>
+            <h5 class="homepost">{{post.created_at}}</h5>
+            <p class="homepost">{{post.body|truncatewords:20}}</p>
         </section>
     </a>
     {% endfor %}
