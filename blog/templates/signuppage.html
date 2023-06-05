@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link href="" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div>
+        <form id="createuser" method="POST" action="createUser">
+            {% csrf_token %}
+            <label>Name: </label>
+            <input type="text" name="name" id="name" width="100px"/>
+            <label>Username: </label>
+            <input type="text" name="username" id="username" width="100px"/>
+            <label>Password: </label>
+            <input type="text" name="password" id="password" width="100px"/>
+            <label>Age: </label>
+            <input type="text" name="age" id="age" width="100px"/>
+            <input type="submit" value="Create"/>
+        </form>
+    </div>
+</body>
+</html>

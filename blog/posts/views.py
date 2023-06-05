@@ -4,12 +4,13 @@ from .models import Post
 
 # Create your views here.
 
-def createID(request):
+def createPost(request):
     #ts = Post.objects.all()
     #return render(request, 'createID.html', {'posts': posts})
-    return render(request, 'createID.html')
+    return render(request, 'createPost.html')
 
-
+def signuppage(request):
+    return render(request, 'signuppage.html')
 
 def post(request, pk):
     posts = Post.objects.get(id=pk)
