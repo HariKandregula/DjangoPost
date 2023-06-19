@@ -27,6 +27,7 @@
             <h2 class="homepost">{{post.title}}</h2>
             <h5 class="homepost">{{post.created_at}}</h5>
             <p class="homepost">{{post.body|truncatewords:20}}</p>
+            <h6>Likes: {{post.likes}}</h6>
         </section>
     </a>
     {% endfor %}

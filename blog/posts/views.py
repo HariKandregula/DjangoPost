@@ -11,9 +11,15 @@ def createPost(request):
 
 def post(request, pk):
     posts = Post.objects.get(id=pk)
-    if request.method == 'POST':
+    if 'delete' in request.POST:
         posts.delete()
         return HttpResponseRedirect('/home')
+    if 'likes' in request.POST:
+        posts.likes += 1
+        posts.save()
+        postsAll = Post.objects.all()
+        return HttpResponseRedirect('/home')
+        #return render(request, 'home.html', {'posts': postsAll})
     return render(request, 'post.html', {'posts': posts})
 
 def home(request):
@@ -23,4 +29,5 @@ def home(request):
         post.title = request.POST.get('postheading')
         post.body = request.POST.get('postcontent')
         post.save()
+        return render(request, 'home.html', {'posts': posts})
     return render(request, 'home.html', {'posts': posts})

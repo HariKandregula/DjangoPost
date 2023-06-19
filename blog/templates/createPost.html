@@ -9,7 +9,7 @@
 <body>
 
 <h1>welcome to Create a Post page</h1>
-<form class="postdetails" name="new_post" action="/home/" method="POST">
+<form class="postdetails" name="newPost" action="/home/" method="POST">
     {% csrf_token %}
     <div class="detailsformone">
         <h5 class="topicname">Topic</h5>
@@ -20,7 +20,7 @@
         <input class="contentbox" type="text" name="postcontent">
     </div>
     <div class="detailsformone">
-        <input class="postsubmit" type="submit" value="Post">
+        <input class="postsubmit" type="submit" name="createPosts" value="Post">
     </div>
 </form>
 
