@@ -7,17 +7,25 @@
 </head>
 <body>
     <div>
-        <form id="createuser" name="new_user" method="POST" action="/home/">
+        <form id="createuser" action="/home/" method="POST">
             {% csrf_token %}
-            <label>Name: </label>
-            <input type="text" name="name" id="name" width="100px"/>
-            <label>Username: </label>
+            <label>UserName: </label>
+            <input type="text" name="username" id="username" width="100px"/>
+            <label>FirstName: </label>
+            <input type="text" name="firstname" id="firstname" width="100px"/>
+            <label>LastName: </label>
+            <input type="text" name="lastname" id="lastname" width="100px"/>
+            <label>Password: </label>
+            <input type="text" name="password" id="password" width="100px"/>
+            <input type="submit" name="new_user" value="SignUp"/>
+        </form><br>
+        <form id="loginuser" action="/home/" method="POST">
+            {% csrf_token %}
+            <label>UserName: </label>
             <input type="text" name="username" id="username" width="100px"/>
             <label>Password: </label>
             <input type="text" name="password" id="password" width="100px"/>
-            <label>Age: </label>
-            <input type="text" name="age" id="age" width="100px"/>
-            <input type="submit" value="Create"/>
+            <input type="submit" name="login_user" value="Login"/>
         </form>
         <!--<form action="/home/" method="POST">
             {% csrf_token %}
