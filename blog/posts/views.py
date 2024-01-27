@@ -1,15 +1,25 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.http import HttpResponseNotFound
 from .models import Post, Customusers
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login 
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
 def createPost(request):
     posts = Post.objects.all()
-    #return render(request, 'createID.html', {'posts': posts})
-    return render(request, 'createPost.html')
+    user_name = request.user
+    if 'createPosts' in request.POST:
+        posts = Post()
+        posts.title = request.POST.get('postheading')
+        posts.body = request.POST.get('postcontent')
+        Customusers(username=user_name).posted.add(posts.id)
+        # user_name.customusers.add(posts)
+        posts.save()
+        # return render(request, 'home.html', {'posts': posts, 'user_name': user_name})
+        return HttpResponseRedirect('/home')
+    else:
+        return render(request, 'createPost.html')
 
 def post(request, pk):
     posts = Post.objects.get(id=pk)
@@ -27,17 +37,10 @@ def post(request, pk):
 def home(request):
     posts = Post.objects.all()
     user_name = request.user
-    if request.method == 'POST' and 'newPost' in request.POST:
-        post = Post()
-        post.title = request.POST.get('postheading')
-        post.body = request.POST.get('postcontent')
-        post.save()
-        return render(request, 'home.html', {'posts': posts, 'user_name': user_name})
-    return render(request, 'home.html', {'posts': posts, 'user_name': user_name})
-
-def signuppage(request):
-    posts = Post.objects.all()
-    user_name = request.user
+    print("Current user is: ",user_name)
+    if 'logout' in request.POST:
+        print("logout successfull")
+        return logout(request)
     if 'new_user' in request.POST:
         username = request.POST["username"]
         firstname = request.POST["firstname"]
@@ -47,15 +50,19 @@ def signuppage(request):
             return HttpResponseNotFound()
         else:
             user = User.objects.create_user(username=username,first_name=firstname,last_name=lastname,password=password)
-        return home(request)
-    elif 'login_user' in request.POST:
+        return render(request, 'home.html', {'posts': posts, 'user_name': user_name})
+    if 'login_user' in request.POST:
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            return HttpResponseRedirect('/home')
         else:
             return HttpResponseNotFound()
-        return home(request)
     else:
-        return render(request, 'signuppage.html')
+        return render(request, 'home.html', {'posts': posts, 'user_name': user_name})
+
+def signuppage(request):
+    return render(request, 'signuppage.html')
+    

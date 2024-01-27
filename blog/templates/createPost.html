@@ -9,7 +9,7 @@
 <body>
 
 <h1>welcome to Create a Post page</h1>
-<form class="postdetails" name="newPost" href="/home/" method="POST">
+<form class="postdetails" name="newPost" action="/home/createPost" method="post">
     {% csrf_token %}
     <div class="detailsformone">
         <h5 class="topicname">Topic</h5>

@@ -14,13 +14,17 @@
             <li class="listitem listsearch"><input class="topheading search" type="search" id="search"></li>
             <li class="listitem listpostcreate"><button class="topheading postcreate" onclick="location.href='/home/createPost'">
                 Create a new Post</button></li>
-            <!-- <li class="listitem createuser"><button onclick="location.href='/home/signuppage'">Sign Up</button></li>
-            <li class="listitem login"><button>Login</button></li> -->
+            <li class="listitem">
+                <form action="/" method="POST" name="logout">
+                    {% csrf_token %}
+                    <input type="submit" name="logout" value="Logout">
+                </form>
+            </li>
+             <!-- <li class="listitem login"><button>Login</button></li> -->
         </ul>
     </nav>
     <h1 align="center">Posts</h1>
-    <p>Hi this is new paragraph created by default. By clicking on the <b><i>Create a new Post</i></b>
-         create a new post which will be displayed here.</p>
+    <p><h5>Welcome <span style="text-transform:uppercase;">{{user_name.username}}</span> to this page.</h5></p>
     {% for post in posts reversed %}
     <a style="text-decoration: none; color: black;" href="/post/{{post.id}}">
         <section class="allposts">
@@ -28,7 +32,7 @@
             <h5 class="homepost">{{post.created_at}}</h5>
             <p class="homepost">{{post.body|truncatewords:20}}</p>
             <h6>Likes: {{post.likes}}</h6>
-            <h6>Posted By: {{user_name.username}}</h6>
+            <h6>Posted By: {{post.username}}</h6>
         </section>
     </a>
     {% endfor %}
