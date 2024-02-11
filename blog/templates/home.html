@@ -15,13 +15,12 @@
             <li class="listitem listpostcreate"><button class="topheading postcreate" onclick="location.href='/home/createPost'">
                 Create a new Post</button></li>
             <li class="listitem">
-                <form action="/" method="POST" name="logout">
                     {% csrf_token %}
-                    <input type="submit" name="logout" value="Logout">
-                </form>
+                    <input type="submit" name="logout" value="Logout" onclick="location.href='/'">
             </li>
              <!-- <li class="listitem login"><button>Login</button></li> -->
         </ul>
+        <h1 style="text-align: center;">Welcome {{ user_name }}</h1>
     </nav>
     <h1 align="center">Posts</h1>
     <p><h5>Welcome <span style="text-transform:uppercase;">{{user_name.username}}</span> to this page.</h5></p>
@@ -32,7 +31,7 @@
             <h5 class="homepost">{{post.created_at}}</h5>
             <p class="homepost">{{post.body|truncatewords:20}}</p>
             <h6>Likes: {{post.likes}}</h6>
-            <h6>Posted By: {{post.username}}</h6>
+            <h6>Posted By: {{post.userposted.username}}</h6>
         </section>
     </a>
     {% endfor %}

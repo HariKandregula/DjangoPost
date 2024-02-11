@@ -22,7 +22,7 @@
       <h5>{{posts.created_at}}</h5>
       <p>{{posts.body}}</p>
       <h6>Likes: {{posts.likes}}</h6>
-      <h5>Posted By: {{user_name.username}}</h5>
+      <h5>Posted By: {{username.username}}</h5>
       <form method="POST">
         {% csrf_token %}
         <button name="likes" value="likebutton">Like</button>

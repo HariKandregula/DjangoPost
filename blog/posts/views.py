@@ -1,28 +1,33 @@
 from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.http import HttpResponseNotFound
-from .models import Post, Customusers
+from posts.models import Customusers, Post
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from blog.forms import userCreationForm
 
 # Create your views here.
 
 def createPost(request):
     posts = Post.objects.all()
-    user_name = request.user
+    
     if 'createPosts' in request.POST:
+        user_created = Customusers()
+        user_created.username = request.user
+        user_created.save()
         posts = Post()
         posts.title = request.POST.get('postheading')
         posts.body = request.POST.get('postcontent')
-        Customusers(username=user_name).posted.add(posts.id)
-        # user_name.customusers.add(posts)
+        posts.userposted = user_created
         posts.save()
         # return render(request, 'home.html', {'posts': posts, 'user_name': user_name})
         return HttpResponseRedirect('/home')
+        #return render(request, 'home.html', {'posts':posts})
     else:
         return render(request, 'createPost.html')
 
 def post(request, pk):
     posts = Post.objects.get(id=pk)
+    username = request.user
     if 'delete' in request.POST:
         posts.delete()
         return HttpResponseRedirect('/home')
@@ -32,15 +37,12 @@ def post(request, pk):
         postsAll = Post.objects.all()
         return HttpResponseRedirect('/home')
         #return render(request, 'home.html', {'posts': postsAll})
-    return render(request, 'post.html', {'posts': posts})#1st posts is template variable and 2nd posts in the view
+    return render(request, 'post.html', {'posts': posts, 'username': username})#1st posts is template variable and 2nd posts in the view
 
 def home(request):
     posts = Post.objects.all()
     user_name = request.user
     print("Current user is: ",user_name)
-    if 'logout' in request.POST:
-        print("logout successfull")
-        return logout(request)
     if 'new_user' in request.POST:
         username = request.POST["username"]
         firstname = request.POST["firstname"]
@@ -64,5 +66,9 @@ def home(request):
         return render(request, 'home.html', {'posts': posts, 'user_name': user_name})
 
 def signuppage(request):
-    return render(request, 'signuppage.html')
+    if 'logout' in request.headers:
+        logout(request)
+    context = {}
+    context['form'] = userCreationForm()
+    return render(request, 'signuppage.html', context)
     

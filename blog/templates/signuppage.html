@@ -9,14 +9,15 @@
     <div>
         <form id="createuser" action="/home/" method="POST">
             {% csrf_token %}
-            <label>UserName: </label>
+            <!--<label>UserName: </label>
             <input type="text" name="username" id="username" width="100px"/>
             <label>FirstName: </label>
             <input type="text" name="firstname" id="firstname" width="100px"/>
             <label>LastName: </label>
             <input type="text" name="lastname" id="lastname" width="100px"/>
-            <label>Password: </label>
-            <input type="text" name="password" id="password" width="100px"/>
+            <label>Password: </label> 
+            <input type="text" name="password" id="password" width="100px"/>-->
+            {{ form }}
             <input type="submit" name="new_user" value="SignUp"/>
         </form><br>
         <form id="loginuser" action="/home/" method="POST">
