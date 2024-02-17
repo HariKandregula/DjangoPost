@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link href="" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div>
+        <form id="createuser" action="/home/" method="POST">
+            {% csrf_token %}
+            <!--<label>UserName: </label>
+            <input type="text" name="username" id="username" width="100px"/>
+            <label>FirstName: </label>
+            <input type="text" name="firstname" id="firstname" width="100px"/>
+            <label>LastName: </label>
+            <input type="text" name="lastname" id="lastname" width="100px"/>
+            <label>Password: </label> 
+            <input type="text" name="password" id="password" width="100px"/>-->
+            {{ form }}
+            <input type="submit" name="new_user" value="SignUp"/>
+        </form><br>
+        <form id="loginuser" action="/home/" method="POST">
+            {% csrf_token %}
+            <label>UserName: </label>
+            <input type="text" name="username" id="username" width="100px"/>
+            <label>Password: </label>
+            <input type="text" name="password" id="password" width="100px"/>
+            <input type="submit" name="login_user" value="Login"/>
+        </form>
+        <!--<form action="/home/" method="POST">
+            {% csrf_token %}
+            {{form}}
+            <input type="submit" value="Submit"/>
+        </form>-->
+    </div>
+</body>
+</html>

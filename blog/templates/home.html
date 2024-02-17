@@ -12,19 +12,28 @@
         <ul class="nav">
             <li class="listitem listname"><h3 class="topheading name">Posts Viewer</h3></li>
             <li class="listitem listsearch"><input class="topheading search" type="search" id="search"></li>
-            <li class="listitem listpostcreate"><button class="topheading postcreate" onclick="location.href='https://www.google.com'">
+            <li class="listitem listpostcreate"><button class="topheading postcreate" onclick="location.href='/home/createPost'">
                 Create a new Post</button></li>
+            <li class="listitem">
+                    {% csrf_token %}
+                    <input type="submit" name="logout" value="Logout" onclick="location.href='/'">
+            </li>
+             <!-- <li class="listitem login"><button>Login</button></li> -->
         </ul>
+        <h1 style="text-align: center;">Welcome {{ user_name }}</h1>
     </nav>
     <h1 align="center">Posts</h1>
+    <p><h5>Welcome <span style="text-transform:uppercase;">{{user_name.username}}</span> to this page.</h5></p>
     {% for post in posts reversed %}
-    <section class="allposts">
-        <p>Hi this is new paragraph created by default. By clicking on the <b><i>Create a new Post</i></b>
-         create a new post which will be displayed here.</p>
-        <h2>{{post.title}}</h2>
-        <h5>{{post.created_at}}</h5>
-        <p>{{post.body|truncatewords:20}}</p>
-    </section>
+    <a style="text-decoration: none; color: black;" href="/post/{{post.id}}">
+        <section class="allposts">
+            <h2 class="homepost">{{post.title}}</h2>
+            <h5 class="homepost">{{post.created_at}}</h5>
+            <p class="homepost">{{post.body|truncatewords:20}}</p>
+            <h6>Likes: {{post.likes}}</h6>
+            <h6>Posted By: {{post.userposted.username}}</h6>
+        </section>
+    </a>
     {% endfor %}
 </div>
 

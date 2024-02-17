@@ -1,20 +1,74 @@
-from django.shortcuts import render
-from .models import Post
-
+from django.shortcuts import render, HttpResponseRedirect, redirect
+from django.http import HttpResponseNotFound
+from posts.models import Customusers, Post
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from blog.forms import userCreationForm
 
 # Create your views here.
 
-def index(request):
+def createPost(request):
     posts = Post.objects.all()
-    return render(request, 'index.html', {'posts': posts})
-
+    
+    if 'createPosts' in request.POST:
+        user_created = Customusers()
+        user_created.username = request.user
+        user_created.save()
+        posts = Post()
+        posts.title = request.POST.get('postheading')
+        posts.body = request.POST.get('postcontent')
+        posts.userposted = user_created
+        posts.save()
+        # return render(request, 'home.html', {'posts': posts, 'user_name': user_name})
+        return HttpResponseRedirect('/home')
+        #return render(request, 'home.html', {'posts':posts})
+    else:
+        return render(request, 'createPost.html')
 
 def post(request, pk):
     posts = Post.objects.get(id=pk)
-    return render(request, 'post.html', {'posts': posts})
-
+    username = request.user
+    if 'delete' in request.POST:
+        posts.delete()
+        return HttpResponseRedirect('/home')
+    if 'likes' in request.POST:
+        posts.likes += 1
+        posts.save()
+        postsAll = Post.objects.all()
+        return HttpResponseRedirect('/home')
+        #return render(request, 'home.html', {'posts': postsAll})
+    return render(request, 'post.html', {'posts': posts, 'username': username})#1st posts is template variable and 2nd posts in the view
 
 def home(request):
     posts = Post.objects.all()
-    return render(request, 'home.html', {'posts': posts})
+    user_name = request.user
+    print("Current user is: ",user_name)
+    if 'new_user' in request.POST:
+        username = request.POST["username"]
+        firstname = request.POST["firstname"]
+        lastname = request.POST["lastname"]
+        password = request.POST["password"]
+        if User.objects.all().filter(username=username).exists():
+            return HttpResponseNotFound()
+        else:
+            user = User.objects.create_user(username=username,first_name=firstname,last_name=lastname,password=password)
+        return render(request, 'home.html', {'posts': posts, 'user_name': user_name})
+    if 'login_user' in request.POST:
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect('/home')
+        else:
+            return HttpResponseNotFound()
+    else:
+        return render(request, 'home.html', {'posts': posts, 'user_name': user_name})
 
+def signuppage(request):
+    if 'logout' in request.headers:
+        logout(request)
+    context = {}
+    context['form'] = userCreationForm()
+    return render(request, 'signuppage.html', context)
+    
