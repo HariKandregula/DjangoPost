@@ -7,13 +7,12 @@ from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
 
-
 class Customusers(models.Model):
     username = models.CharField(max_length=20, null=True)
 
     def __str__(self):
         return str(self.username)
- 
+
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -24,4 +23,3 @@ class Post(models.Model):
 
     def __str__(self):
         return str(self.title)
-    
