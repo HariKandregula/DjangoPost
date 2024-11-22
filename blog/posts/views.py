@@ -4,6 +4,9 @@ from posts.models import Customusers, Post
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from blog.forms import userCreationForm
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 
@@ -40,6 +43,8 @@ def post(request, pk):
     return render(request, 'post.html', {'posts': posts, 'username': username})#1st posts is template variable and 2nd posts in the view
 
 def home(request):
+    logger.debug('This is a debug log in home view')
+    logger.warning("This is a warning log in home view")
     posts = Post.objects.all()
     user_name = request.user
     print("Current user is: ",user_name)
