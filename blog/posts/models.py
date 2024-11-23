@@ -13,7 +13,7 @@ class Customusers(models.Model):
 
     def __str__(self):
         return str(self.username)
- 
+
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -24,9 +24,12 @@ class Post(models.Model):
 
     def __str__(self):
         return str(self.title)
+<<<<<<< HEAD
 
 
 class Comments(models.Model):
     comment_id = models.IntegerField(null=False)
     comments = models.CharField(max_length=1000)
     user_commented = models.ForeignKey(to=Customusers, on_delete=models.CASCADE)
+=======
+>>>>>>> ca7ad61d8d95bd297de8374247d53b5248a60ba9

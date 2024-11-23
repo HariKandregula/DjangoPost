@@ -16,7 +16,10 @@
                 Create a new Post</button></li>
             <li class="listitem">
                     {% csrf_token %}
-                    <input type="submit" name="logout" value="Logout" onclick="location.href='/'">
+<!--                    <form method="POST">-->
+<!--                        {% csrf_token %}-->
+                        <input type="submit" name="logout" value="logout" onclick="location.href='/logout'">
+<!--                    </form>-->
             </li>
              <!-- <li class="listitem login"><button>Login</button></li> -->
         </ul>

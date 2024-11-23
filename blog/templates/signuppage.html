@@ -20,7 +20,7 @@
             {{ form }}
             <input type="submit" name="new_user" value="SignUp"/>
         </form><br>
-        <form id="loginuser" action="/home/" method="POST">
+        <form id="loginuser" action="/" method="POST">
             {% csrf_token %}
             <label>UserName: </label>
             <input type="text" name="username" id="username" width="100px"/>
