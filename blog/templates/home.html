@@ -1,46 +1,66 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
-    <title>Posts Viewer</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posts Viewer</title>
     <link href="{% static '/assets/css/home_style.css' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div>
-    <nav class="header1">
+<div class="heading profile-container">
+     <nav class="header1">
+       {% if prof_pic.url is not None%}
+       <p class="profile-pic"><img src="{{ prof_pic.url }}" alt="Profile Picture" class="profile-pic right"></p>
+       {% endif %}
+       <h1>Welcome {{ user_name }}</h1>
         <ul class="nav">
-            <li class="listitem listname"><h3 class="topheading name">Posts Viewer</h3></li>
-            <li class="listitem listsearch"><input class="topheading search" type="search" id="search"></li>
-            <li class="listitem listpostcreate"><button class="topheading postcreate" onclick="location.href='/home/createPost'">
-                Create a new Post</button></li>
-            <li class="listitem">
-                    {% csrf_token %}
-<!--                    <form method="POST">-->
-<!--                        {% csrf_token %}-->
-                        <input type="submit" name="logout" value="logout" onclick="location.href='/logout'">
-<!--                    </form>-->
-            </li>
-             <!-- <li class="listitem login"><button>Login</button></li> -->
+          <li class="listitem listname"><h3 class="topheading name">Posts Viewer</h3></li>
+          <li class="listitem listsearch"><input class="topheading search" type="search" id="search"></li>
+          <li class="listitem listpostcreate">
+            <button class="topheading postcreate" onclick="location.href='/home/createPost'">
+              Create a new Post
+            </button>
+          </li>
+          <li class="listitem leftspace">
+            {% csrf_token %}
+            <input type="submit" name="logout" value="logout" onclick="location.href='/logout'">
+          </li>
+          <li>
+            <a href="/upload_profilepic">Setting</a>
+          </li>
         </ul>
-        <h1 style="text-align: center;">Welcome {{ user_name }}</h1>
-    </nav>
-    <h1 align="center">Posts</h1>
-    <p><h5>Welcome <span style="text-transform:uppercase;">{{user_name.username}}</span> to this page.</h5></p>
-    {% for post in posts reversed %}
-    <a style="text-decoration: none; color: black;" href="/post/{{post.id}}">
-        <section class="allposts">
-            <h2 class="homepost">{{post.title}}</h2>
-            <h5 class="homepost">{{post.created_at}}</h5>
-            <p class="homepost">{{post.body|truncatewords:20}}</p>
-            <h6>Likes: {{post.likes}}</h6>
-            <h6>Posted By: {{post.userposted.username}}</h6>
-        </section>
-    </a>
-    {% endfor %}
+      </nav>
 </div>
-
-
-
+  <div class="container">
+    <div class="leftsidemain">
+      <h3>Posts</h3>
+      <p><h5>Welcome <span style="text-transform:uppercase;">{{user_name.username}}</span> to this page.</h5></p>
+      {% for post in posts reversed %}
+      <a style="text-decoration: none; color: black;" href="/post/{{post.id}}">
+        <section class="allposts">
+          <h2 class="homepost">{{post.title}}</h2>
+          <h5 class="homepost">{{post.created_at}}</h5>
+          <p class="homepost">{{post.body|truncatewords:20}}</p>
+          <h6>Likes: {{post.likes}}</h6>
+          <h6>Posted By: {{post.userposted.username}}</h6>
+        </section>
+      </a>
+      {% endfor %}
+    </div>
+    <div>
+      <h3>Add Friends</h3>
+      <div>
+        <table>
+          {% for user in all_users %}
+          <tr>
+            <td>{{user.username}}</td>
+            <td class="leftspace"><input type="submit" value="See Posts"></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

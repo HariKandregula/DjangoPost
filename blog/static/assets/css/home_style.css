@@ -1,55 +1,72 @@
-body {
-    background-color: lightblue;
+.container {
+      display: flex; /* Make child divs side by side */
+      gap: 10px; /* Add space between the divs */
+    }
+.leftsidemain {
+      flex: 3; /* Take up more space for the left div */
+      border: 1px solid #ccc;
+      padding: 15px;
+      background-color: #f9f9f9;
 }
-
-.name {
-
+.leftsidemain h3, .leftsidemain p, .heading{
+      text-align: center;
 }
-
-.search {
-
+.leftspace{
+    padding-left: 50%
 }
-
-.topheading {
-    display: inline;
+.heading {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 10px
 }
-
-.postcreate {
-    text-align: center;
-}
-
-.header1 {
-    background-color: lightgreen;
-    padding : 20px 20px 20px 20px;
-}
-
-.nav {
-    display: inline-block;
-}
-
-.listitem {
-    list-style: none;
-    display: inline-block;
-    padding-left: 20px;
-}
-
-.listsearch {
-    padding-left: 100px;
-}
-
-.listpostcreate {
-    padding-left: 500px;
-}
-
-.homepost{
-    margin-left: 10px;
-}
-
 .allposts {
-    background-color: white;
-    margin-right: 500px;
+      border: 1px solid #ddd;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #fff;
 }
-
-.paragraph1 {
-    background-color: white;
+.allposts:hover {
+      background-color: #f0f8ff; /* Highlight on hover */
+}
+.container > div:last-child {
+      flex: 1; /* Take up less space for the right div */
+      border: 1px solid #ccc;
+      padding: 15px;
+      background-color: #f3f3f3;
+      text-align: center;
+}
+nav ul.nav{
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+}
+.nav .listitem {
+      margin: 5px;
+}
+.topheading {
+      font-size: 14px;
+}
+.search {
+      padding: 5px;
+}
+.postcreate {
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+}
+.postcreate:hover {
+      background-color: #0056b3;
+}
+td{
+    text-align: left
+}
+.right {
+    width: 100px;
+    height: 100px;
+    float: right;
+    margin-left: 20px; /* Adjust as needed */
 }

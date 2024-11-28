@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Picture Upload</title>
+    <link href="{% static '/assets/css/index_style.css' %}" rel="stylesheet" type="text/css">
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Profile Picture</h1>
+        <form action="/upload_profilepic" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="profile-pic">Choose or Take a Picture:</label><br>
+            <input type="file" id="profile-pic" name="profile-pic" accept="image/*" capture="user"><br><br>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+</body>
+</html>

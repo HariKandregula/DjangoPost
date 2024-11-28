@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.contrib.auth.models import User
 
 from django.utils.translation import gettext_lazy as _
 
@@ -8,8 +9,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Customusers(models.Model):
-    username = models.CharField(max_length=20, null=True)
-    profile_pic = models.ImageField(null=True, upload_to="pics")
+    username = models.ForeignKey(User, max_length=20, null=True, on_delete=models.CASCADE)
+    profile_pic = models.ImageField(null=True, upload_to="profile_pictures/")
 
     def __str__(self):
         return str(self.username)
@@ -20,16 +21,15 @@ class Post(models.Model):
     body = models.CharField(max_length=1000000)
     created_at = models.DateTimeField(default=datetime.now, blank=True)
     likes = models.IntegerField(blank=True, null=True, default=0)
-    userposted = models.ForeignKey(to=Customusers, on_delete=models.CASCADE, null=True)
+    userposted = models.ForeignKey(Customusers, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return str(self.title)
-<<<<<<< HEAD
+
 
 
 class Comments(models.Model):
     comment_id = models.IntegerField(null=False)
     comments = models.CharField(max_length=1000)
     user_commented = models.ForeignKey(to=Customusers, on_delete=models.CASCADE)
-=======
->>>>>>> ca7ad61d8d95bd297de8374247d53b5248a60ba9
+
